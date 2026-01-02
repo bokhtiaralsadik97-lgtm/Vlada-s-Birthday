@@ -1,124 +1,85 @@
 body {
-  margin: 0;
-  padding: 0;
-  background-color: #000;
-  color: white;
-  font-size: 14px;
-  font-family: sans-serif;
-  overflow-x: hidden; /* Prevents side-scrolling on phones */
-  width: 100%;
-}
-
-a {
-  color: white;
-  font-size: 14px;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: white;
+    font-size: 14px;
+    font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    overflow-x: hidden; /* Prevents horizontal scrolling on phones */
+    width: 100%;
 }
 
 #main {
-  width: 100%;
+    width: 100%;
 }
 
-/* The wrapper now scales with the screen */
 #wrap {
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1100px; 
-  min-height: 680px;
-  margin-top: 10px;
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1100px;
+    min-height: 100vh; /* Adjusts to full screen height */
 }
 
-/* Text box: uses % to stay relative to the screen size */
+/* Fixes the text overlap and cut-off button */
 #text {
-  width: 80%;
-  max-width: 300px;
-  left: 5%;
-  top: 50px;
-  position: absolute;
-  z-index: 10;
+    width: 90%;
+    max-width: 400px;
+    margin: 20px auto;
+    position: relative; /* Change to relative so it pushes the button down */
+    z-index: 10;
+    padding: 15px;
 }
 
 #code {
-  display: none;
-  color: rgb(196, 255, 255);
-  font-size: 16px;
-  margin-top: 20px;
-  line-height: 25px;
-  font-weight: bolder;
+    display: none;
+    color: #c4ffff;
+    font-size: 16px;
+    line-height: 28px;
+    font-weight: bolder;
 }
 
-/* Clock box: moved to use relative positioning for mobile safety */
+/* The Special Wish Button container */
+#message-box {
+    text-align: center;
+    margin-top: 30px;
+    position: relative;
+    width: 100%;
+    padding-bottom: 60px; /* Space at the bottom so it's never cut off */
+}
+
 #clock-box {
-  position: absolute;
-  left: 5%;
-  bottom: 10%;
-  font-size: 20px;
-  display: none;
-  z-index: 15;
-}
-
-#clock-box a {
-  font-size: 20px;
-  text-decoration: none;
-}
-
-#clock {
-  margin-left: 10px;
+    position: relative;
+    margin: 20px auto;
+    text-align: center;
+    font-size: 20px;
+    display: none;
 }
 
 #clock .digit {
-  font-size: 40px;
+    font-size: 40px;
 }
 
-/* Canvas: will now shrink to fit the width of the phone */
 #canvas {
-  display: block;
-  margin: 0 auto;
-  width: 100% !important;
-  height: auto !important;
-  max-width: 1100px;
-}
-
-#message-box {
-  position: absolute;
-  bottom: 20px;
-  left: 5%;
-  font-size: 18px;
-  font-family: monospace;
-}
-
-/* MOBILE FIXES: This section triggers on screens smaller than 800px */
-@media screen and (max-width: 800px) {
-  #text {
-    position: relative;
-    left: 0;
+    display: block;
     margin: 0 auto;
-    width: 90%;
-    text-align: center;
-    top: 20px;
-  }
-  
-  #clock-box {
-    position: relative;
-    left: 0;
-    bottom: 0;
-    margin-top: 20px;
-    text-align: center;
-    width: 100%;
-  }
-
-  #clock .digit {
-    font-size: 32px;
-  }
+    width: 100% !important;
+    height: auto !important;
+    max-width: 1100px;
 }
 
-#error {
-  margin: 0 auto;
-  text-align: center;
-  margin-top: 60px;
-  display: none;
+/* DESKTOP VIEW: Put text on the left if screen is wide enough */
+@media screen and (min-width: 900px) {
+    #text {
+        position: absolute;
+        left: 50px;
+        top: 60px;
+        margin: 0;
+    }
+    #clock-box {
+        position: absolute;
+        left: 50px;
+        bottom: 100px;
+        text-align: left;
+    }
 }
-
-.hand { cursor: pointer; }
-.say { margin-left: 5px; }
-.space { margin-right: 20px; }
