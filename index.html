@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For Vlada 🌸</title>	    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     
@@ -16,105 +16,84 @@
     <script type="text/javascript" src="file/love.js" charset="utf-8"></script>
 
     <style>
-        /* FIX 1: Allow scrolling on mobile but hide side-scroll */
         body {
             background: radial-gradient(circle, #ffffff 0%, #ffe3ec 100%) !important;
             font-family: 'Poppins', sans-serif !important;
-            margin: 0; 
-            padding: 0; 
-            overflow-x: hidden; 
-            overflow-y: auto; 
-            min-height: 100vh;
-            width: 100%;
+            margin: 0; padding: 0; overflow: hidden; width: 100vw; height: 100vh;
         }
 
-        #main { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            width: 100%; 
-        }
-
-        /* FIX 2: Dynamic height container */
-        #wrap { 
-            position: relative; 
-            width: 100%; 
-            max-width: 1100px; 
-            min-height: 100vh;
-            margin: 0 auto;
-        }
+        #main { display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; }
+        #wrap { position: relative; width: 1100px; height: 680px; flex-shrink: 0; transform-origin: center center; }
 
         /* Message Box Styling */
-        #text { 
-            position: relative; 
-            margin: 20px auto; 
-            width: 90%; 
-            max-width: 450px; 
-            z-index: 999; 
-        }
-
+        #text { position: absolute; left: 40px; top: 60px; width: 380px; z-index: 999; }
         #code { 
             display: none; 
-            font-size: 14px; 
+            font-size: 13px; 
             color: #5d414d; 
-            line-height: 1.6; 
-            background: rgba(255, 255, 255, 0.6); 
-            backdrop-filter: blur(10px); 
-            padding: 20px; 
-            border-radius: 20px;
+            line-height: 1.7; 
+            background: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(20px); 
+            padding: 25px; 
+            border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.2);
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.2);
         }
 
-        /* Timer Styling */
+        /* Timer Right-Aligned */
         #clock-box { 
-            position: relative;
-            margin: 20px auto;
-            text-align: center;
+            position: absolute;
+            right: -60px; 
+            bottom: 20px; 
             display: none; 
             color: #a3808f; 
-            font-size: 14px; 
+            font-size: 12px; 
+            background: rgba(255, 255, 255, 0.7); 
+            padding: 8px 20px; 
+            border-radius: 50px;
             z-index: 1000;
         }
 
-        /* Canvas / Tree Scaling */
-        #canvas {
-            display: block;
-            margin: 0 auto;
-            max-width: 100%;
-            height: auto !important;
+        /* Magical Cursor Trail Particles */
+        .trail {
+            position: fixed;
+            width: 5px; height: 5px;
+            background: #ff85a1;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            animation: trailFade 1s forwards;
         }
+        @keyframes trailFade { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(3); } }
 
         /* Surprise Button */
         #surprise-btn {
             display: none;
-            margin: 20px auto;
-            padding: 12px 25px;
+            margin-top: 20px;
+            padding: 10px 20px;
             background: #ff85a1;
             color: white;
             border: none;
-            border-radius: 50px;
+            border-radius: 20px;
             cursor: pointer;
+            font-family: 'Poppins', sans-serif;
             font-weight: 600;
             box-shadow: 0 5px 15px rgba(255, 133, 161, 0.4);
+            transition: 0.3s;
         }
+        #surprise-btn:hover { transform: scale(1.1); background: #ff5d8f; }
 
-        .highlight { font-family: 'Dancing Script', cursive; font-size: 22px; color: #ff5d8f; }
-        #clock .digit { color: #ff85a1; font-weight: 600; font-size: 20px; }
-        
-        #tap-hint { position: fixed; bottom: 20px; width: 100%; text-align: center; color: #ff85a1; font-size: 12px; z-index: 1002; letter-spacing: 2px; }
+        .say { margin-bottom: 5px; display: block; }
+        .highlight { font-family: 'Dancing Script', cursive; font-size: 19px; color: #ff5d8f; }
+        #clock .digit { color: #ff85a1; font-weight: 600; font-size: 15px; }
 
-        /* DESKTOP ADJUSTMENTS */
-        @media screen and (min-width: 900px) {
-            body { overflow: hidden; } /* Lock scroll on desktop */
-            #text { position: absolute; left: 40px; top: 50px; margin: 0; }
-            #clock-box { position: absolute; right: 40px; bottom: 40px; text-align: right; }
-            #main { height: 100vh; justify-content: center; }
+        #tap-hint { position: fixed; bottom: 20px; width: 100%; text-align: center; color: #ff85a1; font-size: 11px; z-index: 1002; animation: pulse 2s infinite; letter-spacing: 2px; }
+
+        @media screen and (max-width: 1150px) { #wrap { transform: scale(0.8); } }
+        @media screen and (max-width: 650px) {
+            #wrap { transform: scale(0.38); }
+            #clock-box { right: 0px; bottom: 0px; font-size: 18px; }
         }
-
-        /* Particles */
-        .trail { position: fixed; width: 5px; height: 5px; background: #ff85a1; border-radius: 50%; pointer-events: none; z-index: 10000; animation: trailFade 1s forwards; }
-        @keyframes trailFade { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(3); } }
     </style>
 </head>
 <body>
@@ -126,19 +105,16 @@
         <div id="wrap">
             <div id="text">
                 <div id="code">
-                    <span class="say">Hey you 💞</span><br>
-                    <span class="say">Look whose birthday it is... 🎂🎈</span><br>
-                    <span class="say">It’s my <span class="highlight">jaan's</span> big day! </span><br>
-                    <span class="say">Happy Birthday, <span class="highlight">Vladaaa</span> 💕</span><br><br>
-
-                    <span class="say">I hope your day is filled with soft moments, genuine smiles, and all the little things that make your heart happy🥺❤️</span><br>
-                    <span class="say">You make ordinary things feel like magic.</span><br>
-                    <span class="say"><span class="highlight">Vlada</span> you're beautiful in every way that matters, and it means a lot to me❤️.</span><br><br>
-
-                    <span class="say">I wish I could be there to hold you today😊.Until then here is a small reminder that you're truly special to me✨🤍</span><br>
-                    <span class="say">But I’m sending you millions of hugs and kisses until I see you soonn 🥺💋.</span><br><br>
-
-                    <span class="say">Have the most wonderful day, I'm glad to have you in my life <span class="highlight">котььь</span> ❤️😘</span><br>
+                    <span class="say">Hey you 💞</span>
+                    <span class="say">Look whose birthday it is... 🎈</span>
+                    <span class="say">It’s my <span class="highlight">jaan's</span> big day! 🍀</span>
+                    <span class="say">Happy Birthday, <span class="highlight">Vladaaa</span> 💕</span><br>
+                    <span class="say">I hope your day is filled with soft moments, genuine smiles, and all the little things that make your heart happy 🥺❤️</span>
+                    <span class="say">You make ordinary things feel like magic.</span>
+                    <span class="say">Just saying, babee... you are absolutely beautiful, inside and out ❤️.</span><br>
+                    <span class="say">I’m so sorry I can't be there to hold you today 🥺😥.</span>
+                    <span class="say">But I’m sending you a million hugs until I see you soonn 🥺💋.</span><br>
+                    <span class="say">Have the most wonderful day, <span class="highlight">котььь</span> ❤️😘</span>
                     <button id="surprise-btn" onclick="burstHearts()">A Special Wish? ✨</button>
                 </div>
             </div>
@@ -157,27 +133,34 @@
     <script>
     (function(){
         var togetherDate = new Date();
-        togetherDate.setFullYear(2025, 8, 13); 
+        togetherDate.setFullYear(2023, 5, 15); 
         togetherDate.setHours(0); togetherDate.setMinutes(0); togetherDate.setSeconds(0);
 
         var canvas = $('#canvas');
         var audio = document.getElementById("myAudio");
 
+        // Magical Cursor Trail
         $(document).mousemove(function(e){
             var trail = $('<div class="trail"></div>').css({left: e.pageX, top: e.pageY});
             $('body').append(trail);
             setTimeout(function(){ trail.remove(); }, 1000);
         });
 
+        // Heart Burst Function
         window.burstHearts = function() {
             for(let i=0; i<30; i++) {
                 setTimeout(function(){
                     const heart = $('<div style="position:fixed; z-index:10001; font-size:24px; pointer-events:none;">❤️</div>');
-                    heart.css({ left: '50%', top: '50%', transition: '2s all' });
+                    heart.css({
+                        left: '50%', top: '50%',
+                        transition: '2s all'
+                    });
                     $('body').append(heart);
                     const vx = (Math.random() - 0.5) * 1000;
                     const vy = (Math.random() - 0.5) * 1000;
-                    setTimeout(() => { heart.css({transform: `translate(${vx}px, ${vy}px) scale(2)`, opacity: 0}); }, 50);
+                    setTimeout(() => {
+                        heart.css({transform: `translate(${vx}px, ${vy}px) scale(2)`, opacity: 0});
+                    }, 50);
                     setTimeout(() => heart.remove(), 2000);
                 }, i * 50);
             }
@@ -188,8 +171,7 @@
             audio.play();
             $("#tap-hint").fadeOut();
             var offset = canvas.offset(), x, y;
-            // Handle scaling for touch/click detection
-            var scale = canvas.width() / 1100; 
+            var scale = parseFloat($('#wrap').css('transform').split(',')[0].replace('matrix(', '')) || 1;
             x = (e.pageX - offset.left) / scale;
             y = (e.pageY - offset.top) / scale;
             if (seed.hover(x, y)) {
@@ -198,6 +180,12 @@
                 canvas.unbind("mousemove");
                 canvas.removeClass('hand');
             }
+        }).mousemove(function(e) {
+            var offset = canvas.offset(), x, y;
+            var scale = parseFloat($('#wrap').css('transform').split(',')[0].replace('matrix(', '')) || 1;
+            x = (e.pageX - offset.left) / scale;
+            y = (e.pageY - offset.top) / scale;
+            canvas.toggleClass('hand', seed.hover(x, y));
         });
 
         var tree = new Tree(canvas[0], 1100, 680, {
@@ -225,7 +213,7 @@
                     $ele.html(str.substring(0, progress) + (progress & 1 ? '_' : ''));
                     if (progress >= str.length) { 
                         clearInterval(timer); 
-                        $("#surprise-btn").css("display", "block").hide().fadeIn(1000); 
+                        $("#surprise-btn").fadeIn(1000); // Show button when done
                     }
                 }, 75);
             });
