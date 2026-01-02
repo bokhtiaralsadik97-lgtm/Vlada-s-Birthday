@@ -23,12 +23,15 @@ body {
 
 /* Fixes the text overlap and cut-off button */
 #text {
-    width: 90%;
-    max-width: 400px;
-    margin: 20px auto;
-    position: relative; /* Change to relative so it pushes the button down */
-    z-index: 10;
-    padding: 15px;
+    width: 90% !important;
+    max-width: 400px !important;
+    position: relative !important; /* Forces the box to stay in the layout flow */
+    margin: 20px auto !important;   /* Centers it */
+    height: auto !important;        /* Grows with the text */
+    top: 0 !important;              /* Resets the fixed top position */
+    left: 0 !important;             /* Resets the fixed left position */
+    padding: 20px;
+    z-index: 100;
 }
 
 #code {
@@ -83,3 +86,4 @@ body {
         text-align: left;
     }
 }
+
