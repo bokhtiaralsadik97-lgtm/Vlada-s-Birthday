@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Vlada 🌸</title>	    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="file/jscex.min.js"></script>
+    <script type="text/javascript" src="file/jscex-parser.js"></script>
+    <script type="text/javascript" src="file/jscex-jit.js"></script>
+    <script type="text/javascript" src="file/jscex-builderbase.min.js"></script>
+    <script type="text/javascript" src="file/jscex-async.min.js"></script>
+    <script type="text/javascript" src="file/jscex-async-powerpack.min.js"></script>
+    <script type="text/javascript" src="file/love.js" charset="utf-8"></script>
+
+    <style>
+        body {
+            background: radial-gradient(circle, #ffffff 0%, #ffe3ec 100%) !important;
+            font-family: 'Poppins', sans-serif !important;
+            margin: 0; padding: 0; overflow: hidden; width: 100vw; height: 100vh;
+        }
+
+        #main { display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; }
+        #wrap { position: relative; width: 1100px; height: 680px; flex-shrink: 0; transform-origin: center center; }
+
+        /* Message Box Styling */
+        #text { position: absolute; left: 40px; top: 70px; width: 380px; z-index: 999; }
+        #code { 
+            display: none; 
+            font-size: 13px; 
+            color: #5d414d; 
+            line-height: 1.7; 
+            background: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(20px); 
+            padding: 25px; 
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.2);
+        }
+
+        /* Timer Right-Aligned */
+        #clock-box { 
+            position: absolute;
+            right: -60px; 
+            bottom: 20px; 
+            display: none; 
+            color: #a3808f; 
+            font-size: 12px; 
+            background: rgba(255, 255, 255, 0.7); 
+            padding: 8px 20px; 
+            border-radius: 50px;
+            z-index: 1000;
+        }
+
+        /* Magical Cursor Trail Particles */
+        .trail {
+            position: fixed;
+            width: 5px; height: 5px;
+            background: #ff85a1;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            animation: trailFade 1s forwards;
+        }
+        @keyframes trailFade { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(3); } }
+
+        /* Surprise Button */
+        #surprise-btn {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #ff85a1;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(255, 133, 161, 0.4);
+            transition: 0.3s;
+        }
+        #surprise-btn:hover { transform: scale(1.1); background: #ff5d8f; }
+
+        .say { margin-bottom: 5px; display: block; }
+        .highlight { font-family: 'Dancing Script', cursive; font-size: 19px; color: #ff5d8f; }
+        #clock .digit { color: #ff85a1; font-weight: 600; font-size: 15px; }
+
+        #tap-hint { position: fixed; bottom: 20px; width: 100%; text-align: center; color: #ff85a1; font-size: 11px; z-index: 1002; animation: pulse 2s infinite; letter-spacing: 2px; }
+
+        @media screen and (max-width: 1150px) { #wrap { transform: scale(0.8); } }
+        @media screen and (max-width: 650px) {
+            #wrap { transform: scale(0.38); }
+            #clock-box { right: 0px; bottom: 0px; font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <audio id="myAudio" loop="loop">
+        <source src="aud.mp3" type="audio/mp3" />
+    </audio>
+    
+    <div id="main">
+        <div id="wrap">
+            <div id="text">
+                <div id="code">
+                    <span class="say">Hey you 💞</span>
+                    <span class="say">Look whose birthday it is... 🎂🎈</span>
+                    <span class="say">It’s my <span class="highlight">jaan's</span> big day! </span>
+                    <span class="say">Happy Birthday, <span class="highlight">Vladaaa</span> 💕</span><br>
+                    <span class="say">I hope your day is filled with soft moments, genuine smiles, and all the little things that make your heart happy🥺❤️</span>
+                    <span class="say">You make ordinary things feel like magic.</span>
+                    <span class="say"><span class="highlight">Vlada</span>   you're beautiful in every way that matters, and it means a lot to me❤️.</span><br>
+                    <span class="say">I wish I could be there to hold you today😊.Until then here is a small reminder that you're truly special to me✨🤍</span>
+                    <span class="say">But I’m sending you millions of hugs and kisses until I see you soonn 🥺💋.</span><br>
+                    <span class="say">Have the most wonderful day, I'm glad to have you in my life <span class="highlight">котььь</span> ❤️😘</span>
+                    <button id="surprise-btn" onclick="burstHearts()">A Special Wish? ✨</button>
+                </div>
+            </div>
+
+            <div id="clock-box">
+                <span>💖 Time since you entered my life:</span>
+                <div id="clock"></div>
+            </div>
+
+            <canvas id="canvas" width="1100" height="680"></canvas>
+        </div>
+    </div>
+
+    <div id="tap-hint">TAP THE HEART FOR MAGIC</div>
+
+    <script>
+    (function(){
+        var togetherDate = new Date();
+        togetherDate.setFullYear(2025, 8, 13); 
+        togetherDate.setHours(0); togetherDate.setMinutes(0); togetherDate.setSeconds(0);
+
+        var canvas = $('#canvas');
+        var audio = document.getElementById("myAudio");
+
+        // Magical Cursor Trail
+        $(document).mousemove(function(e){
+            var trail = $('<div class="trail"></div>').css({left: e.pageX, top: e.pageY});
+            $('body').append(trail);
+            setTimeout(function(){ trail.remove(); }, 1000);
+        });
+
+        // Heart Burst Function
+        window.burstHearts = function() {
+            for(let i=0; i<30; i++) {
+                setTimeout(function(){
+                    const heart = $('<div style="position:fixed; z-index:10001; font-size:24px; pointer-events:none;">❤️</div>');
+                    heart.css({
+                        left: '50%', top: '50%',
+                        transition: '2s all'
+                    });
+                    $('body').append(heart);
+                    const vx = (Math.random() - 0.5) * 1000;
+                    const vy = (Math.random() - 0.5) * 1000;
+                    setTimeout(() => {
+                        heart.css({transform: `translate(${vx}px, ${vy}px) scale(2)`, opacity: 0});
+                    }, 50);
+                    setTimeout(() => heart.remove(), 2000);
+                }, i * 50);
+            }
+            $("#surprise-btn").text("I Love You! ❤️");
+        };
+
+        canvas.click(function(e) {
+            audio.play();
+            $("#tap-hint").fadeOut();
+            var offset = canvas.offset(), x, y;
+            var scale = parseFloat($('#wrap').css('transform').split(',')[0].replace('matrix(', '')) || 1;
+            x = (e.pageX - offset.left) / scale;
+            y = (e.pageY - offset.top) / scale;
+            if (seed.hover(x, y)) {
+                hold = 0; 
+                canvas.unbind("click");
+                canvas.unbind("mousemove");
+                canvas.removeClass('hand');
+            }
+        }).mousemove(function(e) {
+            var offset = canvas.offset(), x, y;
+            var scale = parseFloat($('#wrap').css('transform').split(',')[0].replace('matrix(', '')) || 1;
+            x = (e.pageX - offset.left) / scale;
+            y = (e.pageY - offset.top) / scale;
+            canvas.toggleClass('hand', seed.hover(x, y));
+        });
+
+        var tree = new Tree(canvas[0], 1100, 680, {
+            seed: { x: 530, color: "rgb(255, 133, 161)", scale: 2 },
+            branch: [[535, 680, 570, 250, 500, 200, 30, 100, [
+                [540, 500, 455, 417, 340, 400, 13, 100, [[450, 435, 434, 430, 394, 395, 2, 40]]],
+                [550, 445, 600, 356, 680, 345, 12, 100, [[578, 400, 648, 409, 661, 426, 3, 80]]],
+                [539, 281, 537, 248, 534, 217, 3, 40],
+                [546, 397, 413, 247, 328, 244, 9, 80, [[427, 286, 383, 253, 371, 205, 2, 40], [498, 345, 435, 315, 395, 330, 4, 60]]],
+                [546, 357, 608, 252, 678, 221, 6, 100, [[590, 293, 646, 277, 648, 271, 2, 80]]]
+            ]]],
+            bloom: { num: 700, width: 1080, height: 650 },
+            footer: { width: 1200, height: 5, speed: 10 }
+        });
+
+        var seed = tree.seed, foot = tree.footer, hold = 1;
+
+        $.fn.typewriter = function() {
+            this.each(function() {
+                var $ele = $(this), str = $ele.html(), progress = 0;
+                $ele.html('');
+                var timer = setInterval(function() {
+                    var current = str.substr(progress, 1);
+                    if (current == '<') { progress = str.indexOf('>', progress) + 1; } else { progress++; }
+                    $ele.html(str.substring(0, progress) + (progress & 1 ? '_' : ''));
+                    if (progress >= str.length) { 
+                        clearInterval(timer); 
+                        $("#surprise-btn").fadeIn(1000); // Show button when done
+                    }
+                }, 75);
+            });
+            return this;
+        };
+
+        function timeElapse(date){
+            var current = new Date(), seconds = (Date.parse(current) - Date.parse(date)) / 1000;
+            var days = Math.floor(seconds / (3600 * 24));
+            seconds %= (3600 * 24);
+            var hours = Math.floor(seconds / 3600);
+            if (hours < 10) hours = "0" + hours;
+            seconds %= 3600;
+            var minutes = Math.floor(seconds / 60);
+            if (minutes < 10) minutes = "0" + minutes;
+            seconds %= 60;
+            if (seconds < 10) seconds = "0" + seconds;
+            $("#clock").html(" <span class=\"digit\">" + days + "</span> d <span class=\"digit\">" + hours + "</span> h <span class=\"digit\">" + minutes + "</span> m <span class=\"digit\">" + seconds + "</span> s");
+        }
+
+        var seedAnimate = eval(Jscex.compile("async", function () {
+            seed.draw();
+            while (hold) { $await(Jscex.Async.sleep(10)); }
+            while (seed.canScale()) { seed.scale(0.95); $await(Jscex.Async.sleep(10)); }
+            while (seed.canMove()) { seed.move(0, 2); foot.draw(); $await(Jscex.Async.sleep(10)); }
+        }));
+        var growAnimate = eval(Jscex.compile("async", function () { do { tree.grow(); $await(Jscex.Async.sleep(10)); } while (tree.canGrow()); }));
+        var flowAnimate = eval(Jscex.compile("async", function () { do { tree.flower(2); $await(Jscex.Async.sleep(10)); } while (tree.canFlower()); }));
+        var moveAnimate = eval(Jscex.compile("async", function () {
+            tree.snapshot("p1", 240, 0, 610, 680);
+            while (tree.move("p1", 500, 0)) { foot.draw(); $await(Jscex.Async.sleep(10)); }
+            foot.draw();
+            tree.snapshot("p2", 500, 0, 610, 680);
+            canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+            $await(Jscex.Async.sleep(300));
+            canvas.css("background", "none");
+        }));
+        var textAnimate = eval(Jscex.compile("async", function () {
+            $("#code").fadeIn(2000).typewriter();
+            $("#clock-box").fadeIn(2000);
+            setInterval(function () { timeElapse(togetherDate); }, 1000);
+        }));
+
+        var runAsync = eval(Jscex.compile("async", function () {
+            $await(seedAnimate()); $await(growAnimate()); $await(flowAnimate()); $await(moveAnimate());
+            textAnimate().start();
+        }));
+        runAsync().start();
+    })();
+    </script>
+</body>
+</html>
