@@ -3,8 +3,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For Vlada 🌸</title>	    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <title>For Vlada 🌸</title> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="file/jscex.min.js"></script>
@@ -16,253 +17,400 @@
     <script type="text/javascript" src="file/love.js" charset="utf-8"></script>
 
     <style>
+        :root {
+            --primary-pink: #ff85a1;
+            --deep-pink: #ff5d8f;
+            --soft-bg: radial-gradient(circle, #ffffff 0%, #ffe3ec 100%);
+            --text-color: #5d414d;
+        }
+
         body {
-            background: radial-gradient(circle, #ffffff 0%, #ffe3ec 100%) !important;
+            background: var(--soft-bg) !important;
             font-family: 'Poppins', sans-serif !important;
-            margin: 0; padding: 0; overflow: hidden; width: 100vw; height: 100vh;
+            margin: 0; padding: 0; overflow: hidden;
+            width: 100vw; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        #main { display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; }
-        #wrap { position: relative; width: 1100px; height: 680px; flex-shrink: 0; transform-origin: center center; }
+        /* --- Lock Screen & Star Story --- */
+        #lock-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            z-index: 9999; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 20px; box-sizing: border-box; transition: 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-        /* Message Box Styling */
-        #text { position: absolute; left: 40px; top: 60px; width: 380px; z-index: 999; }
+        .star-story { max-width: 650px; color: #e0e0e0; line-height: 1.8; }
+        
+        .star-title-container { position: relative; display: inline-block; margin-bottom: 40px; }
+        .star-title { 
+            font-family: 'Dancing Script', cursive; font-size: 42px; color: var(--primary-pink); 
+            position: relative; z-index: 2; text-shadow: 0 0 15px rgba(255,133,161,0.5);
+        }
+        .shimmer-star {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 100px; height: 100px; background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            border-radius: 50%; animation: pulse-star 4s infinite ease-in-out; z-index: 1;
+        }
+
+        .story-line { opacity: 0; transform: translateY(15px); transition: 1.5s ease; margin-bottom: 15px; font-size: 18px; font-weight: 300; }
+        .story-line.visible { opacity: 1; transform: translateY(0); }
+
+        /* --- Main UI --- */
+        #wrap { position: relative; width: 1100px; height: 680px; flex-shrink: 0; transform-origin: center center; display: none; }
+        #text { position: absolute; left: 30px; top: 50%; transform: translateY(-50%); width: 480px; z-index: 999; }
+        
         #code { 
-            display: none; 
-            font-size: 13px; 
-            color: #5d414d; 
-            line-height: 1.7; 
-            background: rgba(255, 255, 255, 0.4); 
-            backdrop-filter: blur(20px); 
-            padding: 25px; 
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.2);
+            display: none; font-size: 16px; color: var(--text-color); line-height: 1.7; 
+            background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(12px); 
+            padding: 35px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.2); max-height: 550px; overflow-y: auto;
         }
 
-        /* Timer Right-Aligned */
+        .highlight-dancing { font-family: 'Dancing Script', cursive; font-size: 26px; color: var(--deep-pink); font-weight: bold; }
+        .highlight-word { color: var(--deep-pink); font-weight: 700; font-family: 'Montserrat', sans-serif; }
+
+        #special-wish-container { 
+            margin-top: 25px; border-top: 1px dashed rgba(255, 133, 161, 0.3); padding-top: 25px; 
+            display: none; font-family: 'Montserrat', sans-serif; font-size: 15px; color: var(--text-color);
+            font-weight: 500; /* Made slightly bolder as requested */
+        }
+
         #clock-box { 
-            position: absolute;
-            right: -60px; 
-            bottom: 20px; 
-            display: none; 
-            color: #a3808f; 
-            font-size: 12px; 
-            background: rgba(255, 255, 255, 0.7); 
-            padding: 8px 20px; 
-            border-radius: 50px;
-            z-index: 1000;
+            position: absolute; right: 20px; bottom: 20px; display: none; 
+            color: #a3808f; font-size: 14px; background: rgba(255, 255, 255, 0.8); 
+            padding: 10px 25px; border-radius: 50px; z-index: 1000;
         }
 
-        /* Magical Cursor Trail Particles */
-        .trail {
-            position: fixed;
-            width: 5px; height: 5px;
-            background: #ff85a1;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            animation: trailFade 1s forwards;
+        .btn-main {
+            padding: 12px 40px; background: var(--primary-pink); color: white;
+            border: none; border-radius: 30px; cursor: pointer; font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 133, 161, 0.4); transition: 0.3s;
+            font-size: 15px; margin-top: 10px;
         }
-        @keyframes trailFade { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(3); } }
+        .btn-main:hover { background: var(--deep-pink); transform: scale(1.05); }
 
-        /* Surprise Button */
-        #surprise-btn {
-            display: none;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #ff85a1;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(255, 133, 161, 0.4);
-            transition: 0.3s;
+        /* --- Final Popup --- */
+        #popup-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); z-index: 19999;
         }
-        #surprise-btn:hover { transform: scale(1.1); background: #ff5d8f; }
-
-        .say { margin-bottom: 5px; display: block; }
-        .highlight { font-family: 'Dancing Script', cursive; font-size: 19px; color: #ff5d8f; }
-        #clock .digit { color: #ff85a1; font-weight: 600; font-size: 15px; }
-
-        #tap-hint { position: fixed; bottom: 20px; width: 100%; text-align: center; color: #ff85a1; font-size: 11px; z-index: 1002; animation: pulse 2s infinite; letter-spacing: 2px; }
-
-        @media screen and (max-width: 1150px) { #wrap { transform: scale(0.8); } }
-        @media screen and (max-width: 650px) {
-            #wrap { transform: scale(0.38); }
-            #clock-box { right: 0px; bottom: 0px; font-size: 18px; }
+        #final-popup {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8);
+            width: 320px; background: white; padding: 40px; border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2); z-index: 20000; text-align: center; border: 1px solid var(--primary-pink);
+            opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        #final-popup.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+        .cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--deep-pink); margin-left: 3px; vertical-align: middle; animation: blink 0.8s infinite; }
+        
+        /* Final Polish Effects */
+        .russian-final { 
+            text-shadow: 0 0 10px rgba(255, 93, 143, 0); 
+            transition: text-shadow 2s ease;
+        }
+        .russian-final.glow {
+            text-shadow: 0 0 12px rgba(255, 93, 143, 0.5);
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes pulse-star { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; } 50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.6; } }
     </style>
 </head>
 <body>
-    <audio id="myAudio" loop="loop">
-        <source src="aud.mp3" type="audio/mp3" />
-    </audio>
-    
+    <audio id="myAudio" loop="loop"><source src="aud.mp3" type="audio/mp3" /></audio>
+
+    <div id="lock-screen">
+        <div class="star-story">
+            <div class="star-title-container">
+                <div class="shimmer-star"></div>
+                <div class="star-title">The Beginning of a Star</div>
+            </div>
+            <div class="story-line">On a cold winter night in Kazakhstan,</div>
+            <div class="story-line">a new star appeared in the sky.</div>
+            <div class="story-line">Quiet and steady, full of warmth and curiosity.</div>
+            <div class="story-line"><b>January 7th, 2005.</b></div>
+            <div class="story-line">The day you arrived.</div>
+            <div class="story-line">Today, that light turns <b>21.</b></div>
+            <div class="story-line" style="margin-top: 20px;">
+                <button class="btn-main" onclick="startExperience()">Enter Her World ✨</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="popup-overlay"></div>
+    <div id="final-popup">
+        <div style="font-size: 50px; margin-bottom: 10px;">🌸</div>
+        <h3 class="highlight-dancing" style="font-size: 30px; margin: 10px 0;">One last thing...</h3>
+        <p style="color: #5d414d; font-size: 16px; line-height: 1.5;">I love you more than words can type.<br>Happy 21st Birthday, Vlada!</p>
+        <button class="btn-main" onclick="closePopup()">Close</button>
+    </div>
+
     <div id="main">
         <div id="wrap">
             <div id="text">
                 <div id="code">
-                    <span class="say">Hey you 💞</span>
-                    <span class="say">Look whose birthday it is... 🎈</span>
-                    <span class="say">It’s my <span class="highlight">jaan's</span> big day! 🍀</span>
-                    <span class="say">Happy Birthday, <span class="highlight">Vladaaa</span> 💕</span><br>
-                    <span class="say">I hope your day is filled with soft moments, genuine smiles, and all the little things that make your heart happy 🥺❤️</span>
-                    <span class="say">You make ordinary things feel like magic.</span>
-                    <span class="say">Just saying, babee... you are absolutely beautiful, inside and out ❤️.</span><br>
-                    <span class="say">I’m so sorry I can't be there to hold you today 🥺😥.</span>
-                    <span class="say">But I’m sending you a million hugs until I see you soonn 🥺💋.</span><br>
-                    <span class="say">Have the most wonderful day, <span class="highlight">котььь</span> ❤️😘</span>
-                    <button id="surprise-btn" onclick="burstHearts()">A Special Wish? ✨</button>
+                    <div id="typewriter-base">
+                        <span class="say"><span class="highlight-dancing">Happy 21st Birthday, Vladaa!</span> 🎈</span><br>
+                        <span class="say">As you turn 21, I wish for you a future</span>
+                        <span class="say">as boundless as your potential. 🍀</span><br>
+                        <span class="say">May you find success in every path you walk,</span>
+                        <span class="say">and may your hard work always <span class="highlight-word">bloom</span>.</span><br>
+                        <span class="say">I wish you the courage to trust your wisdom,</span>
+                        <span class="say">and the clarity to see your unique value. ✨</span><br>
+                        <span class="say">Though I am not there to celebrate your birthday by your side 🥺,</span>
+                        <span class="say">Know that I am your steadiness and your biggest supporter, <span class="highlight-word"></span>always.</span><br>
+                        <span class="say">Keep shining, stronger than ever <span class="highlight-dancing">котьь</span> ❤️😘</span>
+                    </div>
+                    
+                    <button id="surprise-btn" class="btn-main" style="display:none; margin-top:20px;" onclick="openSecret()">For the girl who wanna kill me✨</button>
+                    
+                    <div id="special-wish-container">
+                        <div id="secret-typing-area"></div>
+                    </div>
                 </div>
             </div>
-
             <div id="clock-box">
-                <span>💖 Time since you entered my life:</span>
+                <span><b>Our story so far...💝</b></span>
                 <div id="clock"></div>
             </div>
-
             <canvas id="canvas" width="1100" height="680"></canvas>
         </div>
     </div>
 
-    <div id="tap-hint">TAP THE HEART FOR MAGIC</div>
-
     <script>
-    (function(){
-        var togetherDate = new Date();
-        togetherDate.setFullYear(2023, 5, 15); 
-        togetherDate.setHours(0); togetherDate.setMinutes(0); togetherDate.setSeconds(0);
-
-        var canvas = $('#canvas');
-        var audio = document.getElementById("myAudio");
-
-        // Magical Cursor Trail
-        $(document).mousemove(function(e){
-            var trail = $('<div class="trail"></div>').css({left: e.pageX, top: e.pageY});
-            $('body').append(trail);
-            setTimeout(function(){ trail.remove(); }, 1000);
-        });
-
-        // Heart Burst Function
-        window.burstHearts = function() {
-            for(let i=0; i<30; i++) {
-                setTimeout(function(){
-                    const heart = $('<div style="position:fixed; z-index:10001; font-size:24px; pointer-events:none;">❤️</div>');
-                    heart.css({
-                        left: '50%', top: '50%',
-                        transition: '2s all'
-                    });
-                    $('body').append(heart);
-                    const vx = (Math.random() - 0.5) * 1000;
-                    const vy = (Math.random() - 0.5) * 1000;
-                    setTimeout(() => {
-                        heart.css({transform: `translate(${vx}px, ${vy}px) scale(2)`, opacity: 0});
-                    }, 50);
-                    setTimeout(() => heart.remove(), 2000);
-                }, i * 50);
-            }
-            $("#surprise-btn").text("I Love You! ❤️");
-        };
-
-        canvas.click(function(e) {
-            audio.play();
-            $("#tap-hint").fadeOut();
-            var offset = canvas.offset(), x, y;
-            var scale = parseFloat($('#wrap').css('transform').split(',')[0].replace('matrix(', '')) || 1;
-            x = (e.pageX - offset.left) / scale;
-            y = (e.pageY - offset.top) / scale;
-            if (seed.hover(x, y)) {
-                hold = 0; 
-                canvas.unbind("click");
-                canvas.unbind("mousemove");
-                canvas.removeClass('hand');
-            }
-        }).mousemove(function(e) {
-            var offset = canvas.offset(), x, y;
-            var scale = parseFloat($('#wrap').css('transform').split(',')[0].replace('matrix(', '')) || 1;
-            x = (e.pageX - offset.left) / scale;
-            y = (e.pageY - offset.top) / scale;
-            canvas.toggleClass('hand', seed.hover(x, y));
-        });
-
-        var tree = new Tree(canvas[0], 1100, 680, {
-            seed: { x: 530, color: "rgb(255, 133, 161)", scale: 2 },
-            branch: [[535, 680, 570, 250, 500, 200, 30, 100, [
-                [540, 500, 455, 417, 340, 400, 13, 100, [[450, 435, 434, 430, 394, 395, 2, 40]]],
-                [550, 445, 600, 356, 680, 345, 12, 100, [[578, 400, 648, 409, 661, 426, 3, 80]]],
-                [539, 281, 537, 248, 534, 217, 3, 40],
-                [546, 397, 413, 247, 328, 244, 9, 80, [[427, 286, 383, 253, 371, 205, 2, 40], [498, 345, 435, 315, 395, 330, 4, 60]]],
-                [546, 357, 608, 252, 678, 221, 6, 100, [[590, 293, 646, 277, 648, 271, 2, 80]]]
-            ]]],
-            bloom: { num: 700, width: 1080, height: 650 },
-            footer: { width: 1200, height: 5, speed: 10 }
-        });
-
-        var seed = tree.seed, foot = tree.footer, hold = 1;
-
-        $.fn.typewriter = function() {
-            this.each(function() {
-                var $ele = $(this), str = $ele.html(), progress = 0;
-                $ele.html('');
-                var timer = setInterval(function() {
-                    var current = str.substr(progress, 1);
-                    if (current == '<') { progress = str.indexOf('>', progress) + 1; } else { progress++; }
-                    $ele.html(str.substring(0, progress) + (progress & 1 ? '_' : ''));
-                    if (progress >= str.length) { 
-                        clearInterval(timer); 
-                        $("#surprise-btn").fadeIn(1000); // Show button when done
-                    }
-                }, 75);
+        $(document).ready(function() {
+            let lines = $(".story-line");
+            lines.each(function(i) {
+                setTimeout(() => { $(this).addClass("visible"); }, i * 1800 + 500);
             });
-            return this;
+        });
+
+        function startExperience() {
+            var audio = document.getElementById("myAudio");
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log("Audio play deferred"));
+            $("#lock-screen").css({"opacity": "0", "pointer-events": "none"});
+            setTimeout(() => {
+                $("#lock-screen").hide();
+                $("#wrap").fadeIn(1500);
+                runAsync().start();
+                startSparkles();
+            }, 1500);
+        }
+
+        const secretContent = `
+            <span class="highlight-dancing">Hey little ghost,</span><br><br>
+            Let me tell you a secret…actually it's just our <span class="highlight-word">little moments</span>.<br>
+            The simple ones that somehow stay with us.<br><br>
+            When you get cold and I touch your cheek without thinking…<br>
+            By the way, do you remember the first time? <br>
+            It is your <span class="highlight-word">favorite</span>, right??? <br><br>
+            How you hold my arm tightly and tickle me…<br>
+            the teasing, the smiles, and how can I forget those <br>
+            <span class="highlight-word">tight and long hugss</span>.<br>
+            The way time <span class="highlight-word">disappears</span> when we’re together.<br><br>
+            When we’re close, everything feels <span class="highlight-word">lighter</span>. <br>
+            It feels <span class="highlight-word">real</span>. It feels <span class="highlight-word">rare</span>.<br><br>
+            <b>You never tried to change me.</b><br>
+            You just stayed with me, and in your <span class="highlight-word">presence</span><br>
+            I learned to be <span class="highlight-word">gentle</span>—with myself, with time.<br><br>
+            You helped me to <span class="highlight-word">grow</span> without pressure<br>
+            and become a better man. Not because you asked,<br>
+            but because I <span class="highlight-word">wanted</span> to improve myself.<br><br>
+            You once said feelings can’t be forced.<br>
+            But what grows <span class="highlight-word">quietly</span>, without force—<br>
+            that’s what feels <span class="highlight-word">true</span> to me.<br>
+            This isn’t a demand. It’s just my quiet truth.<br><br>
+            Psychology says that attachment is built in the small things.<br>
+            Maybe that’s why these small moments matter.<br><br>
+            Every moment with you felt <span class="highlight-word">Secure</span>. <span class="highlight-word">Steady</span>. <span class="highlight-word">Safe</span>.<br>
+            They weren’t grand. They were true.<br><br>
+            I wanted to say this today <br>
+            because you deserve to feel how much you are <br>
+            <span class="highlight-word">loved</span>, <span class="highlight-word">valued</span>, and <span class="highlight-word">respected</span>.<br><br>
+            Just me being honest. <br>
+            Keep this safe in your heart. 🫂💫<br><br>
+            <span id="russian-special" style="border-left: 3px solid var(--primary-pink); padding-left: 15px; display: block; margin-top: 10px;">
+                <span class="highlight-word russian-final" style="font-size: 19px;">Подойди ко мне. Ты в безопасности.</span><br>
+                <span class="highlight-word russian-final" style="font-size: 19px;">Я уже здесь.</span><br>
+                <span class="highlight-dancing russian-final" id="joy-text" style="font-size: 34px; display: block; margin-top: 8px;">Моя Радость...❤️</span>
+            </span>
+        `;
+
+        window.openSecret = function() {
+            $("#surprise-btn").fadeOut(300);
+            $("#special-wish-container").show();
+            $("#secret-typing-area").humanTypewriter(secretContent);
+            triggerHearts(35);
         };
+
+        function triggerHearts(count) {
+            for(let i=0; i<count; i++){
+                setTimeout(() => {
+                    const heart = $('<div style="position:fixed;top:50%;left:50%;font-size:24px;z-index:10000;pointer-events:none;">❤️</div>');
+                    $('body').append(heart);
+                    heart.animate({
+                        top: (Math.random()*70 + 15)+'%', 
+                        left: (Math.random()*70 + 15)+'%', 
+                        opacity: 0
+                    }, 4000, function() { $(this).remove(); });
+                }, i*120);
+            }
+        }
+
+        function closePopup() {
+            $("#final-popup").removeClass("show");
+            setTimeout(() => { $("#final-popup, #popup-overlay").fadeOut(); }, 500);
+        }
+
+        (function($) {
+            $.fn.humanTypewriter = function(str) {
+                var $ele = $(this), progress = 0;
+                $ele.html('<span class="content-holder"></span><span class="cursor"></span>');
+                var $content = $ele.find('.content-holder');
+                var parentCode = document.getElementById('code');
+
+                function type() {
+                    if (progress < str.length) {
+                        var char = str.substr(progress, 1);
+                        if (char === '<') {
+                            progress = str.indexOf('>', progress) + 1;
+                        } else {
+                            progress++;
+                        }
+                        $content.html(str.substring(0, progress));
+                        parentCode.scrollTop = parentCode.scrollHeight;
+
+                        let delay = 35 + Math.random() * 45;
+                        if (char === '.' || char === '!' || char === '?' || char === '…') delay = 950;
+                        if (char === ',' || char === '—') delay = 550;
+                        
+                        if (progress > str.length - 120) delay += 40; // Intimate slow down
+
+                        setTimeout(type, delay);
+                    } else {
+                        $ele.find('.cursor').fadeOut();
+                        // Special Russian Highlight Effect
+                        $(".russian-final").addClass("glow");
+                        triggerHearts(15); 
+                        
+                        setTimeout(() => {
+                            $("#popup-overlay").fadeIn(800);
+                            $("#final-popup").show().addClass("show");
+                        }, 2800);
+                    }
+                }
+                type();
+            };
+
+            $.fn.typewriter = function() {
+                this.each(function() {
+                    var $ele = $(this), str = $ele.html(), progress = 0;
+                    $ele.html('').append('<span class="content-holder"></span><span class="cursor"></span>');
+                    var $content = $ele.find('.content-holder');
+                    var timer = setInterval(function() {
+                        var current = str.substr(progress, 1);
+                        if (current == '<') { progress = str.indexOf('>', progress) + 1; } else { progress++; }
+                        $content.html(str.substring(0, progress));
+                        document.getElementById('code').scrollTop = document.getElementById('code').scrollHeight;
+                        if (progress >= str.length) { 
+                            clearInterval(timer); 
+                            $ele.find('.cursor').fadeOut();
+                            $("#surprise-btn").fadeIn(1000); 
+                        }
+                    }, 65);
+                });
+                return this;
+            };
+        })(jQuery);
 
         function timeElapse(date){
             var current = new Date(), seconds = (Date.parse(current) - Date.parse(date)) / 1000;
             var days = Math.floor(seconds / (3600 * 24));
             seconds %= (3600 * 24);
             var hours = Math.floor(seconds / 3600);
-            if (hours < 10) hours = "0" + hours;
             seconds %= 3600;
             var minutes = Math.floor(seconds / 60);
-            if (minutes < 10) minutes = "0" + minutes;
             seconds %= 60;
-            if (seconds < 10) seconds = "0" + seconds;
-            $("#clock").html(" <span class=\"digit\">" + days + "</span> d <span class=\"digit\">" + hours + "</span> h <span class=\"digit\">" + minutes + "</span> m <span class=\"digit\">" + seconds + "</span> s");
+            $("#clock").html("<span class=\"digit\">"+days+"</span> d <span class=\"digit\">"+hours+"</span> h <span class=\"digit\">"+minutes+"</span> m <span class=\"digit\">"+seconds+"</span> s");
         }
 
-        var seedAnimate = eval(Jscex.compile("async", function () {
-            seed.draw();
-            while (hold) { $await(Jscex.Async.sleep(10)); }
-            while (seed.canScale()) { seed.scale(0.95); $await(Jscex.Async.sleep(10)); }
-            while (seed.canMove()) { seed.move(0, 2); foot.draw(); $await(Jscex.Async.sleep(10)); }
-        }));
-        var growAnimate = eval(Jscex.compile("async", function () { do { tree.grow(); $await(Jscex.Async.sleep(10)); } while (tree.canGrow()); }));
-        var flowAnimate = eval(Jscex.compile("async", function () { do { tree.flower(2); $await(Jscex.Async.sleep(10)); } while (tree.canFlower()); }));
-        var moveAnimate = eval(Jscex.compile("async", function () {
-            tree.snapshot("p1", 240, 0, 610, 680);
-            while (tree.move("p1", 500, 0)) { foot.draw(); $await(Jscex.Async.sleep(10)); }
-            foot.draw();
-            tree.snapshot("p2", 500, 0, 610, 680);
-            canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
-            $await(Jscex.Async.sleep(300));
-            canvas.css("background", "none");
-        }));
-        var textAnimate = eval(Jscex.compile("async", function () {
-            $("#code").fadeIn(2000).typewriter();
-            $("#clock-box").fadeIn(2000);
-            setInterval(function () { timeElapse(togetherDate); }, 1000);
-        }));
+        function startSparkles() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const sparkles = [];
+            function createSparkle() {
+                return {
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 0.5,
+                    opacity: Math.random(),
+                    speed: Math.random() * 0.015 + 0.005
+                };
+            }
+            for(let i=0; i<20; i++) sparkles.push(createSparkle());
+            function draw() {
+                sparkles.forEach(s => {
+                    s.opacity -= s.speed;
+                    if(s.opacity <= 0) Object.assign(s, createSparkle());
+                    ctx.fillStyle = `rgba(255, 133, 161, ${s.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                requestAnimationFrame(draw);
+            }
+            draw();
+        }
 
-        var runAsync = eval(Jscex.compile("async", function () {
-            $await(seedAnimate()); $await(growAnimate()); $await(flowAnimate()); $await(moveAnimate());
-            textAnimate().start();
-        }));
-        runAsync().start();
-    })();
+        (function(){
+            var togetherDate = new Date();
+            togetherDate.setFullYear(2025, 7, 13); // sep 13, 2025
+            togetherDate.setHours(0); togetherDate.setMinutes(0); togetherDate.setSeconds(0);
+            var canvas = $('#canvas');
+            function autoScaleLayout() {
+                var width = window.innerWidth, height = window.innerHeight;
+                var scale = Math.min(width / 1100, height / 680) * 0.95;
+                $("#wrap").css("transform", "scale(" + scale + ")");
+            }
+            window.addEventListener('resize', autoScaleLayout); autoScaleLayout();
+
+            var tree = new Tree(canvas[0], 1100, 680, {
+                seed: { x: 530, color: "rgb(255, 133, 161)", scale: 2 },
+                branch: [[535, 680, 570, 250, 500, 200, 30, 100, [
+                    [540, 500, 455, 417, 340, 400, 13, 100, [[450, 435, 434, 430, 394, 395, 2, 40]]],
+                    [550, 445, 600, 356, 680, 345, 12, 100, [[578, 400, 648, 409, 661, 426, 3, 80]]],
+                    [546, 397, 413, 247, 328, 244, 9, 80]
+                ]]],
+                bloom: { num: 700, width: 1080, height: 650 },
+                footer: { width: 1200, height: 5, speed: 10 }
+            });
+
+            window.runAsync = eval(Jscex.compile("async", function () {
+                $await(seedAnimate()); $await(growAnimate()); $await(flowAnimate()); $await(moveAnimate());
+                $("#code").fadeIn(1000);
+                $("#typewriter-base").typewriter();
+                $("#clock-box").fadeIn(1000);
+                setInterval(function () { timeElapse(togetherDate); }, 1000);
+            }));
+
+            var seed = tree.seed, foot = tree.footer;
+            var seedAnimate = eval(Jscex.compile("async", function () {
+                seed.draw(); $await(Jscex.Async.sleep(1000));
+                while (seed.canScale()) { seed.scale(0.95); $await(Jscex.Async.sleep(10)); }
+                while (seed.canMove()) { seed.move(0, 2); foot.draw(); $await(Jscex.Async.sleep(10)); }
+            }));
+            var growAnimate = eval(Jscex.compile("async", function () { do { tree.grow(); $await(Jscex.Async.sleep(10)); } while (tree.canGrow()); }));
+            var flowAnimate = eval(Jscex.compile("async", function () { do { tree.flower(2); $await(Jscex.Async.sleep(10)); } while (tree.canFlower()); }));
+            var moveAnimate = eval(Jscex.compile("async", function () {
+                tree.snapshot("p1", 240, 0, 610, 680);
+                while (tree.move("p1", 500, 0)) { foot.draw(); $await(Jscex.Async.sleep(10)); }
+                foot.draw(); tree.snapshot("p2", 500, 0, 610, 680);
+            }));
+        })();
     </script>
 </body>
 </html>
